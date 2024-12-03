@@ -41,6 +41,7 @@ func part1(input string) int {
 		levelsStr := strings.Split(scanner.Text(), " ")
 		levels := make([]int, len(levelsStr))
 
+		// Convert levels to int
 		for i, s := range levelsStr {
 			levels[i], err = strconv.Atoi(s)
 			if err != nil {
@@ -49,6 +50,7 @@ func part1(input string) int {
 		}
 
 		// Check condition 1
+		// - Row is in increasing or decreasing order
 		isAscending := sort.SliceIsSorted(levels, func(a, b int) bool {
 			return levels[a] < levels[b]
 		})
@@ -57,13 +59,13 @@ func part1(input string) int {
 		})
 
 		// Check condition 2
+		// - Any adjacent levels differ by at least one and at most 3
 		valid := true
 		if isAscending || isDescending {
 			for idx := 0; idx < len(levels)-1; idx++ {
 				dif := utils.Abs(levels[idx] - levels[idx+1])
 				if !(idx < len(levels)-1 && dif > 0 && dif < 4) {
 					valid = false
-					fmt.Println("BREAKS:", levels[idx], levels[idx+1])
 					break
 				}
 			}
@@ -76,11 +78,6 @@ func part1(input string) int {
 	if err := scanner.Err(); err != nil {
 		panic(err)
 	}
-
-	// Split by spaces (not uniform amount so I'll need to loop through them)
-	// Check if
-	// - Row is in increasing or decreasing order
-	// - Any adjacent levels differ by at least one and at most 3
 
 	return totalSafe
 }
