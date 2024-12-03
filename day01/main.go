@@ -1,8 +1,9 @@
-package day01
+package main
 
 import (
 	"aoc/utils"
 	"bufio"
+	"flag"
 	"fmt"
 	"math"
 	"os"
@@ -17,11 +18,28 @@ import (
 // Then sort both of them
 // Then iterate over and sum the difference between a[i] and b[i]
 
-func Test() {
+func main() {
+	var part int
+	flag.IntVar(&part, "part", 1, "part 1 or 2")
+	flag.Parse()
+	fmt.Println("Running part", part)
+
+	input := "./day01/input.txt"
+
+	if part == 1 {
+		ans := part1(input)
+		fmt.Println("Answer:", ans)
+	} else {
+		ans := part2(input)
+		fmt.Println("Answer:", ans)
+	}
+}
+
+func part1(input string) int {
 	var left []int
 	var right []int
 
-	f, err := os.Open("./day01/input.txt")
+	f, err := os.Open(input)
 	utils.Check(err)
 	defer f.Close()
 
@@ -52,6 +70,7 @@ func Test() {
 		total += int(math.Abs(float64(left[i] - right[i])))
 	}
 
-	// Print answer
-	fmt.Println(total)
+	return total
 }
+
+func part2(input string) int { return 0 }
