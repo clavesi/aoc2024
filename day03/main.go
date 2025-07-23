@@ -37,7 +37,7 @@ func part1(input string) int {
 	defer f.Close()
 
 	// REGEX
-	r, _ := regexp.Compile("mul\\(\\d+,\\d+\\)")
+	r, _ := regexp.Compile(`mul\(\d+,\d+\)`)
 
 	// Go line by line
 	scanner := bufio.NewScanner(f)
